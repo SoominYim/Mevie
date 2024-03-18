@@ -1,18 +1,21 @@
 <template>
-  <div>
-    <input type="text" />
-  </div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "MevieMain",
+  name: "MeMain",
   components: {},
   data() {
-    return {};
+    return {
+      sampleData: "",
+    };
   },
   computed: {},
-
+  setup() {},
+  created() {},
+  mounted() {},
+  unmounted() {},
   methods: {},
 };
 </script>

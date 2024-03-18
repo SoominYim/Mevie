@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <mevie-main></mevie-main>
+    <me-main></me-main>
   </div>
 </template>
 
 <script>
-import MevieMain from "@/components/MevieMain.vue";
+import MeMain from "@/views/MeMain.vue";
 
 export default {
   name: "App",
   components: {
-    MevieMain,
+    MeMain,
   },
 };
 </script>
