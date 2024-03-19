@@ -1,27 +1,22 @@
 <template>
   <div id="app">
-    <me-main></me-main>
+    <me-header></me-header>
+    <router-view />
   </div>
 </template>
 
 <script>
-import MeMain from "@/views/MeMain.vue";
+import MeHeader from "@/components/common/MeHeader";
 
 export default {
   name: "App",
   components: {
-    MeMain,
+    MeHeader,
   },
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+@import "./style/reset.css";
+@import "./style/app.scss";
 </style>

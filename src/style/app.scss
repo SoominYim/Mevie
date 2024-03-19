@@ -1,0 +1,30 @@
+#app {
+  position: relative;
+  overflow: hidden;
+}
+
+html[data-theme="blightMode"] {
+  --color-body: #fff;
+  --color-text: #2b2b2b;
+  .logo {
+    background: url("./assets/logo_white.png") no-repeat 0 0 / 100% auto;
+  }
+}
+html[data-theme="darkMode"] {
+  --color-body: #2b2b2b;
+  --color-text: #fff;
+  .logo {
+    background: url("./assets/logo_black.png") no-repeat 0 0 / 100% auto;
+  }
+}
+
+body {
+  background-color: var(--color-body);
+  color: var(--color-text);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+.logo {
+  width: 300px;
+  height: 150px;
+  transition: background 0.5s ease, color 0.5s ease;
+}
