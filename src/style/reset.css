@@ -10,6 +10,7 @@
   font-style: normal;
 }
 
+html,
 body {
   width: 100%;
   height: 100%;
@@ -146,4 +147,8 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+.blind {
+  display: none;
 }
