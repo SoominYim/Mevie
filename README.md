@@ -108,7 +108,116 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 # 🔧 테스트 단계
 ## Dark Mode 기능
 ### ❌ 최초 접속 시 localStorage에 theme 미적용
+### 원인 : Mode에 따라 로고가 변하는 코드를 css에서 처리했다.
+```css
+html[data-theme="blightMode"] {
+  --color-body: #fff;
+  --color-text: #2b2b2b;
+  .logo {
+    background: url("~@/assets/logo_white.png") no-repeat 0 0 / 100% auto;
+  }
+  // Fixed
+  .fix-item {
+    button {
+      background-color: #fff;
+      -webkit-box-shadow: 0 0 0 1px #dadcdf, 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 0 0 1px #dadcdf, 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+      span {
+        color: #2b2b2b;
+      }
+    }
+  }
+}
+html[data-theme="darkMode"] {
+  --color-body: #2b2b2b;
+  --color-text: #fff;
+  .logo {
+    background: url("./assets/logo_black.png") no-repeat 0 0 / 100% auto;
+  }
+
+  // Fixed
+  .fix-item {
+    button {
+      background-color: #2b2b2b;
+      -webkit-box-shadow: 0 0 0 1px #515254, 0 3px 6px 0 rgba(0, 0, 0, 0.08);
+      box-shadow: 0 0 0 1px #515254, 0 3px 6px 0 rgba(0, 0, 0, 0.08);
+      span {
+        color: #d9dbdf;
+      }
+    }
+  }
+}
+
+```
+css가 먼저 렌더링이 되기 때문에 Mode 로직이 정상적으로 처리가 되지 않았다.
+```javascript
+<template>
+  <div id="app">
+    <me-header></me-header>
+    <router-view />
+    <me-fix></me-fix>
+  </div>
+</template>
+
+<script>
+import MeHeader from "@/components/common/MeHeader";
+import MeFix from "@/components/common/MeFix";
+
+export default {
+  name: "App",
+  components: {
+    MeHeader,
+    MeFix,
+  },
+  data() {
+    return {
+      localTheme: localStorage.getItem("theme") || "brightMode",
+    };
+  },
+  computed: {
+    theme() {
+      return this.$store.state.theme;
+    },
+  },
+  created() {
+    this.localTheme = localStorage.getItem("theme");
+    if (this.localTheme) {
+      document.documentElement.setAttribute("data-theme", this.localTheme);
+      this.$store.commit("setTheme", this.localTheme);
+    } else {
+      document.documentElement.setAttribute("data-theme", this.theme);
+      window.localStorage.setItem("theme", "brightMode");
+    }
+  },
+};
+</script>
+
+<style lang="scss">
+@import "./style/reset.css";
+@import "./style/app.scss";
+</style>
+```
 ### 해결방법
+store에서 theme를 관리하고, logo 렌더링은 computed를 사용해 inline으로 처리 하였다.
+```vue
+  <div class="logo" :style="logoTheme">
+      <router-link :to="{ name: 'main' }">
+        <span class="blind">Mevie</span>
+      </router-link>
+    </div>
+```
+```javascript
+computed: {
+    logoTheme() {
+      const theme = this.$store.state.theme;
+      return {
+        background: `url(${
+          theme === "brightMode" ? require("@/assets/logo_white.png") : require("@/assets/logo_black.png")
+        }) no-repeat 0 0 / 100% auto`,
+      };
+    },
+```
+
 ### ❌ Dark Mode 사용중 새로고침시에 화면 깜빡임 버그
 ![recording-_1_](https://github.com/SoominYim/Mevie/assets/107674737/313e671e-a0ae-493d-b40c-26fc84885e05)
 ### 해결방법
