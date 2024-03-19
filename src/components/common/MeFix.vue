@@ -3,7 +3,7 @@
     <button class="top-btn" @click="scrollTop"><span class="material-symbols-outlined"> arrow_upward </span></button>
     <button class="mode-btn" @click="toggleMode">
       <span class="material-symbols-outlined">
-        {{ theme == "blightMode" ? "light_mode" : "dark_mode" }}
+        {{ theme == "brightMode" ? "light_mode" : "dark_mode" }}
       </span>
     </button>
   </div>
