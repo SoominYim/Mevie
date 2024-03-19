@@ -106,7 +106,10 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 ***
 
 # 🔧 테스트 단계
-## ❌ Dark Mode 사용중 새로고침시에 화면 깜빡임 버그
+## Dark Mode 기능
+### ❌ 최초 접속 시 localStorage에 theme 미적용
+### 해결방법
+### ❌ Dark Mode 사용중 새로고침시에 화면 깜빡임 버그
 ![recording-_1_](https://github.com/SoominYim/Mevie/assets/107674737/313e671e-a0ae-493d-b40c-26fc84885e05)
 ### 해결방법
 
