@@ -27,7 +27,6 @@ export default {
       this.$store.commit("setTheme", newTheme);
       localStorage.setItem("theme", newTheme);
       document.documentElement.setAttribute("data-theme", newTheme);
-      console.log(this.theme);
     },
     scrollTop() {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -36,4 +35,26 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// Fixed
+.fix-item {
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+  button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #b0b1b3;
+    vertical-align: top;
+    span {
+      padding: 3px 0 0 0;
+    }
+    cursor: pointer;
+  }
+  .mode-btn {
+    margin-left: 15px;
+  }
+}
+</style>

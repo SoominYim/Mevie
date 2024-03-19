@@ -3,7 +3,7 @@
   overflow: hidden;
 }
 
-html[data-theme="blightMode"] {
+html[data-theme="brightMode"] {
   --color-body: #fff;
   --color-text: #2b2b2b;
   // Fixed
@@ -21,7 +21,6 @@ html[data-theme="blightMode"] {
 html[data-theme="darkMode"] {
   --color-body: #2b2b2b;
   --color-text: #fff;
-
   // Fixed
   .fix-item {
     button {
@@ -34,37 +33,12 @@ html[data-theme="darkMode"] {
     }
   }
 }
-
 body {
   background-color: var(--color-body);
   color: var(--color-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 .logo {
   width: 200px;
   height: 100px;
   transition: background 0.3s ease, color 0.3s ease;
-}
-
-// Fixed
-.fix-item {
-  position: fixed;
-  right: 5%;
-  bottom: 5%;
-  button {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid #b0b1b3;
-    vertical-align: top;
-    span {
-      padding: 3px 0 0 0;
-    }
-    cursor: pointer;
-  }
-  .mode-btn {
-    margin-left: 15px;
-  }
 }

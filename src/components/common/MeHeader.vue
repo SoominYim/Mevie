@@ -43,12 +43,13 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  padding: 20px 0;
+  padding: 10px 10px;
   * {
     position: relative;
   }
   .logo {
-    left: calc(50% - 200px / 2);
+    width: calc(70px / 1.271);
+    height: 70px;
   }
 }
 </style>
