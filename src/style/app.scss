@@ -6,9 +6,6 @@
 html[data-theme="blightMode"] {
   --color-body: #fff;
   --color-text: #2b2b2b;
-  .logo {
-    background: url("./assets/logo_white.png") no-repeat 0 0 / 100% auto;
-  }
   // Fixed
   .fix-item {
     button {
@@ -24,9 +21,6 @@ html[data-theme="blightMode"] {
 html[data-theme="darkMode"] {
   --color-body: #2b2b2b;
   --color-text: #fff;
-  .logo {
-    background: url("./assets/logo_black.png") no-repeat 0 0 / 100% auto;
-  }
 
   // Fixed
   .fix-item {

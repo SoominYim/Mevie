@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
 import { mapState } from "vuex";
 export default {
   name: "MainMovie",
@@ -92,10 +92,10 @@ export default {
       this.pos = 0;
 
       // document.querySelector(".popular__slider").style.transform = `translate3d(0, 0, 0)`;
-      this.$refs.popular__slider.transform = `translate3d(0, 0, 0)`;
+      this.$refs.main__slider.transform = `translate3d(0, 0, 0)`;
     },
     handleSlider(e) {
-      const slider = this.$refs.popular__slider;
+      const slider = this.$refs.main__slider;
       const TARGET_CLASS = e.target.offsetParent.className;
 
       if (TARGET_CLASS === "btn__prev") {
@@ -112,10 +112,10 @@ export default {
     window.addEventListener("resize", this.handleResize);
     this.$nextTick(() => {
       // 다음 DOM 업데이트 사이클에서 호출
-      if (this.$refs.popular__slider) {
+      if (this.$refs.main__slider) {
         this.handleResize(); // 요소에 접근하기 전에 호출
       }
     });
   },
 };
-</script>
+</script> -->

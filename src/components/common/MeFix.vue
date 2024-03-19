@@ -10,29 +10,24 @@
 </template>
 
 <script>
-// import MainMovie from "@/components/main/MainMovie";
 export default {
   name: "MeFix",
+  computed: {
+    theme() {
+      return this.$store.state.theme;
+    },
+  },
   data() {
-    return {
-      theme: "blightMode",
-    };
+    return {};
   },
-  mounted() {
-    let localTheme = localStorage.getItem("theme");
-    if (localTheme) {
-      document.documentElement.setAttribute("data-theme", localTheme);
-      this.theme = localTheme;
-    } else {
-      document.documentElement.setAttribute("data-theme", this.theme);
-      window.localStorage.setItem("theme", this.theme);
-    }
-  },
+  mounted() {},
   methods: {
     toggleMode() {
-      this.theme = this.theme == "darkMode" ? "blightMode" : "darkMode";
-      localStorage.setItem("theme", this.theme);
-      document.documentElement.setAttribute("data-theme", this.theme);
+      const newTheme = this.theme == "darkMode" ? "brightMode" : "darkMode";
+      this.$store.commit("setTheme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      document.documentElement.setAttribute("data-theme", newTheme);
+      console.log(this.theme);
     },
   },
 };

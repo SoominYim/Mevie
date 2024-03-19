@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <main-movie></main-movie>
+    <!-- <main-movie></main-movie> -->
   </div>
 </template>
 
 <script>
-import MainMovie from "@/components/MainMovie";
+// import MainMovie from "@/components/main/MainMovie";
 export default {
   name: "MeMain",
-  components: { MainMovie },
+  // components: { MainMovie },
   data() {
     return {
       sampleData: "",

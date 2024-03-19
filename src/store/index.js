@@ -3,6 +3,7 @@ import router from "@/router";
 
 export default createStore({
   state: {
+    theme: "brightMode",
     url: {
       TMDb: "https://api.themoviedb.org/3",
       discover: "/discover/movie",
@@ -47,6 +48,9 @@ export default createStore({
     routerMovieInfo: (state, payload) => {
       state.movieId = payload;
       router.push({ path: "/movie/" + state.movieId });
+    },
+    setTheme(state, theme) {
+      state.theme = theme;
     },
   },
   actions: {},
