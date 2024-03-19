@@ -1,6 +1,6 @@
 <template>
   <div class="fix-item">
-    <button class="top-btn"><span class="material-symbols-outlined"> arrow_upward </span></button>
+    <button class="top-btn" @click="scrollTop"><span class="material-symbols-outlined"> arrow_upward </span></button>
     <button class="mode-btn" @click="toggleMode">
       <span class="material-symbols-outlined">
         {{ theme == "blightMode" ? "light_mode" : "dark_mode" }}
@@ -28,6 +28,9 @@ export default {
       localStorage.setItem("theme", newTheme);
       document.documentElement.setAttribute("data-theme", newTheme);
       console.log(this.theme);
+    },
+    scrollTop() {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     },
   },
 };
