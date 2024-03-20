@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="logo" style="logoTheme">
-      <router-link :to="{ name: 'main' }">
+      <router-link :to="{ path: '/' }">
         <span class="blind">Mevie</span>
       </router-link>
     </div>
