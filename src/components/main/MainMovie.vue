@@ -2,58 +2,38 @@
   <div class="slider__main">
     <h2 class="blind">인기있는 영화</h2>
     <div class="main-slider-wrap">
-      <ul class="main__slider" ref="main__slider" v-bind:style="{ width: w_width * 5 + 'px' }">
-        <li
-          class="slider__item"
-          v-bind:key="key"
-          v-for="(item, key) in sliderItems"
-          v-bind:style="{ width: w_width + 'px' }"
-        >
-          <a>
-            <!-- <a @click="$store.commit('routerMovieInfo', item.id)"> -->
-            <div class="item__img">
-              <img :src="item.backdrop" alt="썸네일" />
-            </div>
-            <div class="item__txt">
-              <h3 class="txt__title">{{ item.title }}</h3>
-              <p class="txt__subject">{{ item.original_title }}, {{ item.release_date }}</p>
-              <p class="txt__desc">{{ item.overview }}</p>
-            </div>
-          </a>
-        </li>
-      </ul>
-
-      <ul class="slider__buttons">
-        <li class="btn__prev">
-          <button @click="handleSlider">
-            <span class="blind">이전</span>
-            <i class="fas fa-chevron-left"></i>
-          </button>
-        </li>
-        <li class="btn__next">
-          <button @click="handleSlider">
-            <span class="blind">다음</span>
-            <i class="fas fa-chevron-right"></i>
-          </button>
+      <ul class="main__slider" ref="main__slider">
+        <li class="slider__item" :key="key" v-for="(item, key) in sliderItems" :style="{ width: '100%' }">
+          <!-- <a @click="$store.commit('routerMovieInfo', item.id)"> -->
+          <div class="item__img">
+            <img :src="item.backdrop" alt="썸네일" />
+          </div>
+          <div class="item__overlay" :style="{ background: overlayMode() }"></div>
+          <div class="item__txt" :style="{ transform: `scale(${text_scale})`, transformOrigin: 'top left' }">
+            <div class="txt__title">{{ item.title }}</div>
+            <div class="txt__subject">{{ item.original_title }}, {{ item.release_date }}</div>
+            <div class="txt__desc">{{ item.overview }}</div>
+          </div>
         </li>
       </ul>
     </div>
   </div>
 </template>
 
-<!-- <script>
+<script>
 import { mapState } from "vuex";
 export default {
   name: "MainMovie",
   data() {
     return {
       sliderItems: [],
-      w_width: null,
+      s_width: null,
       pos: 0,
+      text_scale: null,
     };
   },
   computed: {
-    ...mapState(["url", "params", "imgURL"]),
+    ...mapState(["theme", "url", "params", "imgURL"]),
   },
   methods: {
     getSliderItems() {
@@ -84,15 +64,20 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        })
-        .finally(() => {});
+        });
     },
     handleResize() {
-      this.w_width = window.innerWidth;
+      this.s_width = window.innerWidth;
       this.pos = 0;
 
-      // document.querySelector(".popular__slider").style.transform = `translate3d(0, 0, 0)`;
-      this.$refs.main__slider.transform = `translate3d(0, 0, 0)`;
+      let contentWidth = 1920;
+
+      let winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+      let scaleX = winWidth / contentWidth;
+
+      this.text_scale = scaleX;
+      console.log(scaleX);
     },
     handleSlider(e) {
       const slider = this.$refs.main__slider;
@@ -104,6 +89,13 @@ export default {
       } else if (TARGET_CLASS === "btn__next") {
         this.pos = this.pos === this.w_width * 4 ? 0 : this.pos + this.w_width;
         slider.style.transform = `translate3d(-${this.pos}px, 0, 0)`;
+      }
+    },
+    overlayMode() {
+      if (this.theme === "brightMode") {
+        return "linear-gradient(to bottom, rgba(239, 239, 239, 0) 60%, rgba(239, 239, 239, 0.25) 70%, rgba(239, 239, 239, 0.55) 80%, rgba(239, 239, 239, 0.85) 90%, rgba(239, 239, 239, 1) 100%)";
+      } else {
+        return "linear-gradient(to bottom, rgba(43, 43, 43, 0) 10%, rgba(43, 43, 43, 0.25) 25%, rgba(43, 43, 43, 0.5) 50%, rgba(43, 43, 43, 0.75) 75%, rgba(43, 43, 43, 1) 100%)";
       }
     },
   },
@@ -118,4 +110,51 @@ export default {
     });
   },
 };
-</script> -->
+</script>
+<style lang="scss">
+.slider__main {
+  .main__slider {
+    overflow: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    .slider__item {
+      position: relative;
+      display: inline-block;
+      min-width: 375px;
+      white-space: normal;
+      .item__img {
+        img {
+          width: 100%;
+        }
+      }
+      .item__txt {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #efefef;
+        text-shadow: 1px 2px 3px #333;
+        .txt__title {
+          font-size: 5rem;
+          font-weight: 700;
+        }
+        .txt__subject {
+          font-size: 2rem;
+          font-weight: 100;
+        }
+        .txt__desc {
+          text-overflow: ellipsis;
+          font-size: 2.5rem;
+          font-weight: 100;
+        }
+      }
+      .item__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+</style>

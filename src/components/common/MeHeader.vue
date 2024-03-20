@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="logo" :style="logoTheme">
+    <div class="logo" style="logoTheme">
       <router-link :to="{ name: 'main' }">
         <span class="blind">Mevie</span>
       </router-link>
@@ -27,14 +27,15 @@ export default {
     return {};
   },
   computed: {
-    logoTheme() {
-      const theme = this.$store.state.theme;
-      return {
-        background: `url(${
-          theme === "brightMode" ? require("@/assets/logo_white.png") : require("@/assets/logo_black.png")
-        }) no-repeat 0 0 / 100% auto`,
-      };
-    },
+    // logoTheme() {
+    //   // const theme = this.$store.state.theme;
+    //   return {
+    //     // Logo 모드 변경 삭제
+    //     // background: `url(${
+    //     //   theme === "brightMode" ? require("@/assets/logo_white.png") : require("@/assets/logo_black.png")
+    //     // }) no-repeat 0 0 / 100% auto`,
+    //   };
+    // },
   },
   methods: {},
   mounted() {},
@@ -43,13 +44,16 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  padding: 10px 10px;
   * {
-    position: relative;
+    position: absolute;
+    z-index: 100;
   }
   .logo {
     width: calc(70px / 1.271);
     height: 70px;
+    left: 10px;
+    top: 10px;
+    background: url("../../assets/logo_black.png") no-repeat 0 0 / 100% auto;
   }
 }
 </style>
