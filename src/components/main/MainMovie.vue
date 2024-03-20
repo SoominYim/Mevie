@@ -8,8 +8,16 @@
           <div class="item__img">
             <img :src="item.backdrop" alt="썸네일" />
           </div>
-          <div class="item__overlay" :style="{ background: overlayMode() }"></div>
-          <div class="item__txt" :style="{ transform: `scale(${text_scale})`, transformOrigin: 'top left' }">
+          <div class="item__overlay" :style="{ background: overlayMode_bottom() }"></div>
+          <div
+            class="item__txt"
+            :style="{
+              transform: `scale(${text.scale})`,
+              transformOrigin: 'top left',
+              top: `${text.top}px`,
+              left: `${text.left}px`,
+            }"
+          >
             <div class="txt__title">{{ item.title }}</div>
             <div class="txt__subject">{{ item.original_title }}, {{ item.release_date }}</div>
             <div class="txt__desc">{{ item.overview }}</div>
@@ -29,7 +37,11 @@ export default {
       sliderItems: [],
       s_width: null,
       pos: 0,
-      text_scale: null,
+      text: {
+        scale: null,
+        top: null,
+        left: null,
+      },
     };
   },
   computed: {
@@ -76,7 +88,10 @@ export default {
 
       let scaleX = winWidth / contentWidth;
 
-      this.text_scale = scaleX;
+      this.text.scale = scaleX;
+      this.text.top = 340 * this.text.scale;
+      this.text.left = 120 * this.text.scale;
+
       console.log(scaleX);
     },
     handleSlider(e) {
@@ -91,11 +106,11 @@ export default {
         slider.style.transform = `translate3d(-${this.pos}px, 0, 0)`;
       }
     },
-    overlayMode() {
+    overlayMode_bottom() {
       if (this.theme === "brightMode") {
         return "linear-gradient(to bottom, rgba(239, 239, 239, 0) 60%, rgba(239, 239, 239, 0.25) 70%, rgba(239, 239, 239, 0.55) 80%, rgba(239, 239, 239, 0.85) 90%, rgba(239, 239, 239, 1) 100%)";
       } else {
-        return "linear-gradient(to bottom, rgba(43, 43, 43, 0) 10%, rgba(43, 43, 43, 0.25) 25%, rgba(43, 43, 43, 0.5) 50%, rgba(43, 43, 43, 0.75) 75%, rgba(43, 43, 43, 1) 100%)";
+        return "linear-gradient(to bottom, rgba(43, 43, 43, 0) 60%, rgba(43, 43, 43, 0.25) 70%, rgba(43, 43, 43, 0.5) 80%, rgba(43, 43, 43, 0.75) 90%, rgba(43, 43, 43, 1) 100%)";
       }
     },
   },
@@ -123,28 +138,36 @@ export default {
       min-width: 375px;
       white-space: normal;
       .item__img {
+        text-align: center;
         img {
           width: 100%;
         }
       }
       .item__txt {
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 340px;
+        left: 120px;
+        width: 1000px;
+        line-height: 1.7;
+
         color: #efefef;
         text-shadow: 1px 2px 3px #333;
         .txt__title {
           font-size: 5rem;
           font-weight: 700;
+          line-height: 1.3;
         }
         .txt__subject {
           font-size: 2rem;
           font-weight: 100;
+          margin-bottom: 20px;
         }
         .txt__desc {
           text-overflow: ellipsis;
           font-size: 2.5rem;
           font-weight: 100;
+          letter-spacing: -1.8px;
+          word-break: keep-all;
         }
       }
       .item__overlay {

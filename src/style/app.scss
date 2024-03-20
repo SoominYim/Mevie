@@ -1,3 +1,9 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
 #app {
   position: relative;
   overflow: hidden;
@@ -36,5 +42,5 @@ html[data-theme="darkMode"] {
 body {
   background-color: var(--color-body);
   color: var(--color-text);
-  font-family: Dotum;
+  font-family: "Noto Sans KR", "바탕체", Dotum, "굴림", sans-serif;
 }
