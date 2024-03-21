@@ -105,7 +105,9 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 ***
 
 # 💻 개발 단계
-
+1. TMDB API 사용하여 영화정보 GET
+2. Dark Mode 구현
+3. infinyty slide 구현
 
 # 🔧 테스트 단계
 ## Dark Mode 기능
