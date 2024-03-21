@@ -18,13 +18,8 @@ export default {
   },
   data() {
     return {
-      localTheme: localStorage.getItem("theme") || "brightMode",
+      localTheme: localStorage.getItem("theme"),
     };
-  },
-  computed: {
-    theme() {
-      return this.$store.state.theme;
-    },
   },
   created() {
     this.localTheme = localStorage.getItem("theme");
@@ -32,8 +27,8 @@ export default {
       document.documentElement.setAttribute("data-theme", this.localTheme);
       this.$store.commit("setTheme", this.localTheme);
     } else {
-      document.documentElement.setAttribute("data-theme", this.theme);
-      window.localStorage.setItem("theme", "brightMode");
+      document.documentElement.setAttribute("data-theme", this.$store.state.theme);
+      window.localStorage.setItem("theme", this.$store.state.theme);
     }
   },
 };

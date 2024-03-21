@@ -2,8 +2,13 @@
   <div class="slider__main">
     <h2 class="blind">인기있는 영화</h2>
     <div class="main-slider-wrap">
-      <ul class="main__slider" ref="main__slider">
-        <li class="slider__item" :key="key" v-for="(item, key) in sliderItems" :style="{ width: '100%' }">
+      <ul class="main__slider" ref="main__slider" :style="{ width: slider.s_width * slider.sliderItems.length + 'px' }">
+        <li
+          class="slider__item"
+          :key="key"
+          v-for="(item, key) in slider.sliderItems"
+          :style="{ width: slider.s_width + 'px' }"
+        >
           <!-- <a @click="$store.commit('routerMovieInfo', item.id)"> -->
           <div class="item__img">
             <img :src="item.backdrop" alt="썸네일" />
@@ -24,6 +29,12 @@
           </div>
         </li>
       </ul>
+      <div class="btn__prev" @click="handleSlider" v-if="slider.page !== 0">
+        <span class="blind">이전</span><i class="material-symbols-outlined"> arrow_back_ios_new </i>
+      </div>
+      <div class="btn__next" @click="handleSlider">
+        <span class="blind">다음</span><i class="material-symbols-outlined"> arrow_forward_ios </i>
+      </div>
     </div>
   </div>
 </template>
@@ -34,9 +45,13 @@ export default {
   name: "MainMovie",
   data() {
     return {
-      sliderItems: [],
-      s_width: null,
-      pos: 0,
+      slider: {
+        sliderItems: [],
+        sliderItems_page: 1,
+        s_width: null,
+        pos: 0,
+        page: 0,
+      },
       text: {
         scale: null,
         top: null,
@@ -54,16 +69,15 @@ export default {
           params: {
             api_key: this.params.apiKey,
             language: this.params.langKo,
+            page: this.slider.sliderItems_page,
           },
         })
         .then((res) => {
           const result = res.data.results;
 
           result.forEach((data) => {
-            if (this.sliderItems.length >= 5) return;
-
             if (data.backdrop_path) {
-              this.sliderItems.push({
+              this.slider.sliderItems.push({
                 id: data.id,
                 backdrop: this.imgURL.backdrop + data.backdrop_path,
                 title: data.title,
@@ -79,32 +93,32 @@ export default {
         });
     },
     handleResize() {
-      this.s_width = window.innerWidth;
-      this.pos = 0;
-
-      let contentWidth = 1920;
-
-      let winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
-      let scaleX = winWidth / contentWidth;
-
-      this.text.scale = scaleX;
+      this.slider.s_width = window.innerWidth;
+      this.text.scale = this.slider.s_width / 1920;
       this.text.top = 340 * this.text.scale;
       this.text.left = 120 * this.text.scale;
 
-      console.log(scaleX);
+      this.$refs.main__slider.style.transition = "";
+      this.$refs.main__slider.style.transform = `translate3d(-${this.slider.s_width * this.slider.page}px, 0, 0)`;
     },
     handleSlider(e) {
       const slider = this.$refs.main__slider;
-      const TARGET_CLASS = e.target.offsetParent.className;
+      const target = e.target.className;
 
-      if (TARGET_CLASS === "btn__prev") {
-        this.pos = this.pos === 0 ? this.w_width * 4 : this.pos - this.w_width;
-        slider.style.transform = `translate3d(-${this.pos}px, 0, 0)`;
-      } else if (TARGET_CLASS === "btn__next") {
-        this.pos = this.pos === this.w_width * 4 ? 0 : this.pos + this.w_width;
-        slider.style.transform = `translate3d(-${this.pos}px, 0, 0)`;
+      if (target === "btn__prev") {
+        this.slider.page = this.slider.page - 1;
+        this.slider.pos = this.slider.page * this.slider.s_width;
+      } else if (target === "btn__next") {
+        this.slider.page = this.slider.page + 1;
+        this.slider.pos = this.slider.page * this.slider.s_width;
+        if (this.slider.page === this.slider.sliderItems.length - 1) {
+          this.slider.sliderItems_page += 1;
+          this.getSliderItems();
+        }
       }
+
+      slider.style.transition = "transform 0.5s ease-in-out";
+      slider.style.transform = `translate3d(-${this.slider.pos}px, 0, 0)`;
     },
     overlayMode_bottom() {
       if (this.theme === "brightMode") {
@@ -129,14 +143,14 @@ export default {
 <style lang="scss">
 .slider__main {
   .main__slider {
-    overflow: hidden;
-    white-space: nowrap;
+    display: flex;
     overflow: hidden;
     .slider__item {
       position: relative;
       display: inline-block;
       min-width: 375px;
       white-space: normal;
+      flex: 0 0 auto;
       .item__img {
         text-align: center;
         img {
@@ -149,9 +163,11 @@ export default {
         left: 120px;
         width: 1000px;
         line-height: 1.7;
-
         color: #efefef;
         text-shadow: 1px 2px 3px #333;
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
         .txt__title {
           font-size: 5rem;
           font-weight: 700;
@@ -177,6 +193,28 @@ export default {
         width: 100%;
         height: 100%;
       }
+    }
+  }
+  .btn__prev {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    cursor: pointer;
+    i {
+      color: #efefef;
+      font-size: 5vw;
+      pointer-events: none;
+    }
+  }
+  .btn__next {
+    position: absolute;
+    top: 45%;
+    right: 0;
+    cursor: pointer;
+    i {
+      color: #efefef;
+      font-size: 5vw;
+      pointer-events: none;
     }
   }
 }

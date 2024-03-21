@@ -6,6 +6,7 @@ export default createStore({
     theme: "brightMode",
     url: {
       TMDb: "https://api.themoviedb.org/3",
+      popular: "/discover/movie/popular",
       discover: "/discover/movie",
       now_playing: "/movie/now_playing",
       search: "/search/movie",
