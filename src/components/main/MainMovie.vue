@@ -1,42 +1,48 @@
 <template>
-  <div class="slider__main">
-    <h2 class="blind">인기있는 영화</h2>
-    <div class="main-slider-wrap">
-      <ul class="main__slider" ref="main__slider" :style="{ width: slider.s_width * slider.sliderItems.length + 'px' }">
-        <li
-          class="slider__item"
-          :key="key"
-          v-for="(item, key) in slider.sliderItems"
-          :style="{ width: slider.s_width + 'px' }"
+  <section class="main_movie">
+    <div class="slider__main">
+      <h2 class="blind">인기있는 영화</h2>
+      <div class="main-slider-wrap">
+        <ul
+          class="main__slider"
+          ref="main__slider"
+          :style="{ width: slider.s_width * slider.sliderItems.length + 'px' }"
         >
-          <!-- <a @click="$store.commit('routerMovieInfo', item.id)"> -->
-          <div class="item__img">
-            <img :src="item.backdrop" alt="썸네일" />
-          </div>
-          <div class="item__overlay" :style="{ background: overlayMode_bottom() }"></div>
-          <div
-            class="item__txt"
-            :style="{
-              transform: `scale(${text.scale})`,
-              transformOrigin: 'top left',
-              top: `${text.top}px`,
-              left: `${text.left}px`,
-            }"
+          <li
+            class="slider__item"
+            :key="key"
+            v-for="(item, key) in slider.sliderItems"
+            :style="{ width: slider.s_width + 'px' }"
           >
-            <div class="txt__title">{{ item.title }}</div>
-            <div class="txt__subject">{{ item.original_title }}, {{ item.release_date }}</div>
-            <div class="txt__desc">{{ item.overview }}</div>
-          </div>
-        </li>
-      </ul>
-      <div class="btn__prev" @click="handleSlider" v-if="slider.page !== 0">
-        <span class="blind">이전</span><i class="material-symbols-outlined"> arrow_back_ios_new </i>
-      </div>
-      <div class="btn__next" @click="handleSlider">
-        <span class="blind">다음</span><i class="material-symbols-outlined"> arrow_forward_ios </i>
+            <!-- <a @click="$store.commit('routerMovieInfo', item.id)"> -->
+            <div class="item__img">
+              <img :src="item.backdrop" alt="썸네일" />
+            </div>
+            <div class="item__overlay" :style="{ background: overlayMode_bottom() }"></div>
+            <div
+              class="item__txt"
+              :style="{
+                transform: `scale(${text.scale})`,
+                transformOrigin: 'top left',
+                top: `${text.top}px`,
+                left: `${text.left}px`,
+              }"
+            >
+              <div class="txt__title">{{ item.title }}</div>
+              <div class="txt__subject">{{ item.original_title }}, {{ item.release_date }}</div>
+              <div class="txt__desc">{{ item.overview }}</div>
+            </div>
+          </li>
+        </ul>
+        <div class="btn__prev" @click="handleSlider" v-if="slider.page !== 0">
+          <span class="blind">이전</span><i class="material-symbols-outlined"> arrow_back_ios_new </i>
+        </div>
+        <div class="btn__next" @click="handleSlider">
+          <span class="blind">다음</span><i class="material-symbols-outlined"> arrow_forward_ios </i>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -48,14 +54,14 @@ export default {
       slider: {
         sliderItems: [],
         sliderItems_page: 1,
-        s_width: null,
+        s_width: 0,
         pos: 0,
         page: 0,
       },
       text: {
-        scale: null,
-        top: null,
-        left: null,
+        scale: 0,
+        top: 0,
+        left: 0,
       },
     };
   },
@@ -117,7 +123,7 @@ export default {
         }
       }
 
-      slider.style.transition = "transform 0.5s ease-in-out";
+      this.$refs.main__slider.style.transition = "transform 0.5s ease-in-out";
       slider.style.transform = `translate3d(-${this.slider.pos}px, 0, 0)`;
     },
     overlayMode_bottom() {
@@ -137,18 +143,29 @@ export default {
         this.handleResize(); // 요소에 접근하기 전에 호출
       }
     });
+    setInterval(() => {
+      this.slider.page = this.slider.page + 1;
+      this.slider.pos = this.slider.page * this.slider.s_width;
+      if (this.slider.page === this.slider.sliderItems.length - 1) {
+        this.slider.sliderItems_page += 1;
+        this.getSliderItems();
+      }
+      this.$refs.main__slider.style.transition = "transform 0.5s ease-in-out";
+      this.$refs.main__slider.style.transform = `translate3d(-${this.slider.pos}px, 0, 0)`;
+    }, 10000);
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scope>
 .slider__main {
+  position: relative;
   .main__slider {
+    position: relative;
     display: flex;
     overflow: hidden;
     .slider__item {
       position: relative;
       display: inline-block;
-      min-width: 375px;
       white-space: normal;
       flex: 0 0 auto;
       .item__img {
