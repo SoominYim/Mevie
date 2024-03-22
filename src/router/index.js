@@ -2,12 +2,19 @@ import { createRouter, createWebHistory } from "vue-router";
 import MeMain from "@/views/MeMain.vue";
 import MobileDetect from "mobile-detect";
 import MoMain from "@/mobile/views/MoMain.vue";
+import MeDetail from "@/views/MeDetail";
+
 // PC
 const w_routes = [
   {
     path: "/",
-    name: "main",
+    name: "MeMain",
     component: MeMain,
+  },
+  {
+    path: "/detail/:id",
+    name: "MeDetail",
+    component: MeDetail,
   },
 ];
 

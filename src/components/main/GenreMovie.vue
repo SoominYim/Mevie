@@ -4,14 +4,16 @@
       <h2>{{ this.kor }}</h2>
       <ul class="genre__slider" ref="genre__slider">
         <li class="genre__item" v-for="(item, i) in genreItems" :class="`item${i + 1}`" :key="i">
-          <div class="genre__thumbnail">
-            <img
-              :src="item.poster"
-              alt="배경사진"
-              :style="{ width: `${slider.item_width}px`, height: `${slider.item_width * 1.5}px` }"
-            />
-          </div>
-          <p class="genre__title blind">{{ item.title }}</p>
+          <router-link :to="{ path: `/detail/${item.id}` }">
+            <div class="genre__thumbnail">
+              <img
+                :src="item.poster"
+                alt="배경사진"
+                :style="{ width: `${slider.item_width}px`, height: `${slider.item_width * 1.5}px` }"
+              />
+            </div>
+            <p class="genre__title blind">{{ item.title }}</p>
+          </router-link>
         </li>
       </ul>
       <div
@@ -85,38 +87,43 @@ export default {
     },
     handleResize() {
       const slider = this.$refs.genre__slider;
-      const width = this.$refs.genre__slider.offsetWidth;
-      let item = 0;
-      switch (true) {
-        case width >= 1500:
-          item = 9;
-          break;
-        case width >= 1300:
-          item = 8;
-          break;
-        case width >= 1100:
-          item = 7;
-          break;
-        case width >= 900:
-          item = 6;
-          break;
-        case width >= 700:
-          item = 5;
-          break;
-        default:
-          item = 4;
-      }
+      if (slider) {
+        const width = slider.offsetWidth;
 
-      this.slider.item = item;
-      this.slider.item_width = (width - (item - 1) * 20) / item;
-      this.slider.totalPages = Math.ceil(this.genreItems.length / this.slider.item) - 1; // 전체 페이지 수
+        let item = 0;
+        switch (true) {
+          case width >= 1500:
+            item = 9;
+            break;
+          case width >= 1300:
+            item = 8;
+            break;
+          case width >= 1100:
+            item = 7;
+            break;
+          case width >= 900:
+            item = 6;
+            break;
+          case width >= 700:
+            item = 5;
+            break;
+          default:
+            item = 4;
+        }
 
-      slider.style.transition = "";
-      slider.style.transform = `translate3d(-${
-        (item * this.slider.item_width + item * 20) * this.slider.page
-      }px, 0, 0)`;
-      if (this.slider.totalPages === this.slider.page && this.genreItems.length % this.slider.item !== 0) {
-        this.slider.page -= 1;
+        this.slider.item = item;
+        this.slider.item_width = (width - (item - 1) * 20) / item;
+        this.slider.totalPages = Math.ceil(this.genreItems.length / this.slider.item) - 1; // 전체 페이지 수
+
+        slider.style.transition = "";
+        slider.style.transform = `translate3d(-${
+          (item * this.slider.item_width + item * 20) * this.slider.page
+        }px, 0, 0)`;
+        if (this.slider.totalPages === this.slider.page && this.genreItems.length % this.slider.item !== 0) {
+          this.slider.page -= 1;
+        }
+      } else {
+        console.error("Slider element is null.");
       }
     },
     handleSlider(e) {
@@ -138,13 +145,17 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener("resize", this.handleResize);
     this.$nextTick(() => {
       if (this.$refs.genre__slider) {
         this.handleResize(); // 요소에 접근하기 전에 호출
+
+        window.addEventListener("resize", this.handleResize);
       }
     });
     this.getMovie(this.no);
+  },
+  unmounted() {
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>
