@@ -1,7 +1,7 @@
 <template>
-  <section class="sec__movie">
+  <section class="sec__movie" :style="{}">
     <h2>영화 소개</h2>
-    <div class="movie__box inner clearfix">
+    <div class="movie__box">
       <div class="box__poster">
         <img :src="movieData.poster_path" alt="포스터" v-if="movieData.poster_path !== null" />
         <img src="../../assets/img_no_poster.png" alt="No-Data" v-if="movieData.poster_path === null" />
@@ -31,7 +31,51 @@
 export default {
   name: "DeMovies",
   props: ["movieData", "movieGenres"],
+  data() {
+    return {
+      scale: 0,
+    };
+  },
+  methods: {
+    handleResize() {
+      const w_width = window.innerWidth;
+      const scale = w_width / 1920;
+
+      this.scale = scale;
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener("resize", this.handleResize);
+    });
+    this.handleResize();
+  },
+  unmounted() {
+    window.removeEventListener("resize", this.handleResize);
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+section {
+  padding: 50px 0;
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #efefef;
+  }
+  .movie__box {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+
+    .box__poster {
+      width: 30%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+</style>

@@ -139,8 +139,8 @@ export default {
     this.$nextTick(() => {
       if (this.$refs.main__slider) {
         window.addEventListener("resize", this.handleResize);
-        this.handleResize(); // 요소에 접근하기 전에 호출
       }
+      this.handleResize(); // 요소에 접근하기 전에 호출
     });
   },
   unmounted() {
