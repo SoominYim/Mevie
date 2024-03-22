@@ -123,7 +123,7 @@ export default {
         }
       }
 
-      this.$refs.main__slider.style.transition = "transform 0.5s ease-in-out";
+      slider.style.transition = "transform 0.5s ease-in-out";
       slider.style.transform = `translate3d(-${this.slider.pos}px, 0, 0)`;
     },
     overlayMode_bottom() {
