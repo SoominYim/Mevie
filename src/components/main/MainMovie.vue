@@ -136,23 +136,15 @@ export default {
   },
   mounted() {
     this.getSliderItems();
-    window.addEventListener("resize", this.handleResize);
     this.$nextTick(() => {
-      // 다음 DOM 업데이트 사이클에서 호출
       if (this.$refs.main__slider) {
+        window.addEventListener("resize", this.handleResize);
         this.handleResize(); // 요소에 접근하기 전에 호출
       }
     });
-    setInterval(() => {
-      this.slider.page = this.slider.page + 1;
-      this.slider.pos = this.slider.page * this.slider.s_width;
-      if (this.slider.page === this.slider.sliderItems.length - 1) {
-        this.slider.sliderItems_page += 1;
-        this.getSliderItems();
-      }
-      this.$refs.main__slider.style.transition = "transform 0.5s ease-in-out";
-      this.$refs.main__slider.style.transform = `translate3d(-${this.slider.pos}px, 0, 0)`;
-    }, 10000);
+  },
+  unmounted() {
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>
