@@ -14,10 +14,20 @@
           <p class="genre__title blind">{{ item.title }}</p>
         </li>
       </ul>
-      <div class="btn__prev" @click="handleSlider" :style="{ height: `${slider.item_width * 1.5}px` }">
+      <div
+        class="btn__prev"
+        @click="handleSlider"
+        :style="{ height: `${slider.item_width * 1.5}px` }"
+        v-if="this.slider.page > 0"
+      >
         <span class="blind">이전</span><i class="material-symbols-outlined"> arrow_back_ios_new </i>
       </div>
-      <div class="btn__next" @click="handleSlider" :style="{ height: `${slider.item_width * 1.5}px` }">
+      <div
+        class="btn__next"
+        @click="handleSlider"
+        :style="{ height: `${slider.item_width * 1.5}px` }"
+        v-if="this.slider.page !== this.slider.totalPages"
+      >
         <span class="blind">다음</span><i class="material-symbols-outlined"> arrow_forward_ios </i>
       </div>
     </div>
@@ -34,7 +44,6 @@ export default {
     return {
       genreItems: [],
       slider: {
-        s_width: 0,
         item_width: 0,
         page: 0,
         item: 0,
@@ -77,7 +86,6 @@ export default {
     handleResize() {
       const slider = this.$refs.genre__slider;
       const width = this.$refs.genre__slider.offsetWidth;
-
       let item = 0;
       switch (true) {
         case width >= 1500:
@@ -100,18 +108,13 @@ export default {
       }
 
       this.slider.item = item;
-
       this.slider.item_width = (width - (item - 1) * 20) / item;
-      this.slider.s_width = width;
-
       this.slider.totalPages = Math.ceil(this.genreItems.length / this.slider.item) - 1; // 전체 페이지 수
-      console.log(this.slider.totalPages);
 
       slider.style.transition = "";
       slider.style.transform = `translate3d(-${
         (item * this.slider.item_width + item * 20) * this.slider.page
       }px, 0, 0)`;
-
       if (this.slider.totalPages === this.slider.page && this.genreItems.length % this.slider.item !== 0) {
         this.slider.page -= 1;
       }
@@ -119,19 +122,13 @@ export default {
     handleSlider(e) {
       const slider = this.$refs.genre__slider;
       const target = e.target.className;
-
-      this.slider.totalPages = Math.ceil(this.genreItems.length / this.slider.item) - 1; // 전체 페이지 수
-      console.log(this.slider.totalPages);
-
       let item = this.slider.item;
+      this.slider.totalPages = Math.ceil(this.genreItems.length / this.slider.item) - 1; // 전체 페이지 수
+
       if (target === "btn__prev" && this.slider.page > 0) {
         this.slider.page -= 1;
       } else if (target === "btn__next") {
-        if (this.slider.page < this.slider.totalPages) {
-          this.slider.page += 1;
-        } else if (this.slider.page === this.slider.totalPages) {
-          console.log("마지막 페이지");
-        }
+        if (this.slider.page < this.slider.totalPages) this.slider.page += 1;
       }
 
       slider.style.transition = "transform 0.5s ease-in-out";
@@ -142,16 +139,11 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
-
-    // 전체 페이지 수 계산
-
     this.$nextTick(() => {
       if (this.$refs.genre__slider) {
         this.handleResize(); // 요소에 접근하기 전에 호출
       }
     });
-
-    this.handleResize();
     this.getMovie(this.no);
   },
 };
@@ -168,25 +160,27 @@ section {
     min-width: 600px;
     .btn__prev,
     .btn__next {
-      display: none;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       height: 100%;
       padding: 0 10px;
       position: absolute;
       top: 34px;
       cursor: pointer;
       z-index: 100;
+      transition: opacity 0.3s ease-in-out;
+      background-color: rgba(0, 0, 0, 0.4);
       i {
         color: #efefef;
         font-size: 2rem;
         pointer-events: none;
       }
-      background-color: rgba(0, 0, 0, 0.4);
     }
     &:hover .btn__prev,
     &:hover .btn__next {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      opacity: 1;
     }
     .genre__slider {
       position: relative;
