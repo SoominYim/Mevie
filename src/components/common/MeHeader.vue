@@ -1,10 +1,10 @@
 <template>
   <header>
-    <div class="logo" style="logoTheme">
-      <router-link :to="{ path: '/' }">
+    <router-link :to="{ path: '/' }">
+      <div class="logo" style="logoTheme">
         <span class="blind">Mevie</span>
-      </router-link>
-    </div>
+      </div>
+    </router-link>
     <span class="button__page-back">
       <a @click="$router.go(-1)">
         <i class="fas fa-chevron-left">
@@ -26,17 +26,7 @@ export default {
   data() {
     return {};
   },
-  computed: {
-    // logoTheme() {
-    //   // const theme = this.$store.state.theme;
-    //   return {
-    //     // Logo 모드 변경 삭제
-    //     // background: `url(${
-    //     //   theme === "brightMode" ? require("@/assets/logo_white.png") : require("@/assets/logo_black.png")
-    //     // }) no-repeat 0 0 / 100% auto`,
-    //   };
-    // },
-  },
+  computed: {},
   methods: {},
   mounted() {},
 };
