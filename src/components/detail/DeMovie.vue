@@ -6,7 +6,15 @@
         <img :src="movieData.poster_path" alt="포스터" v-if="movieData.poster_path !== null" />
         <img src="../../assets/img_no_poster.png" alt="No-Data" v-if="movieData.poster_path === null" />
       </div>
-      <div class="box__txt">
+      <div
+        class="box__txt"
+        :style="{
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          top: `${top}px`,
+          left: `${left}px`,
+        }"
+      >
         <h3 class="txt__title">{{ movieData.title }}</h3>
         <dl class="txt__desc">
           <dd class="blind">원작이름</dd>
@@ -15,9 +23,9 @@
           <dd class="blind">장르, 개봉일, 상영시간, 평점</dd>
           <dt class="desc2">
             <span class="txt__genres">{{ movieGenres }}</span>
-            <span class="txt__release-date">{{ movieData.release_date }}</span>
-            <span class="txt__runtime">{{ movieData.runtime }}분</span>
-            <span class="txt__vote-avg">🔥 {{ movieData.vote_average }}/10</span>
+            <span class="txt__release-date"> {{ movieData.release_date }} &nbsp;</span>
+            <span class="txt__runtime"> {{ movieData.runtime }}분 </span>
+            <span class="txt__vote-avg"> 💛 {{ movieData.vote_average }}/10</span>
           </dt>
         </dl>
         <strong class="txt__tagline">{{ movieData.tagline }}</strong>
@@ -34,6 +42,8 @@ export default {
   data() {
     return {
       scale: 0,
+      top: 170,
+      left: 0,
     };
   },
   methods: {
@@ -42,13 +52,14 @@ export default {
       const scale = w_width / 1920;
 
       this.scale = scale;
+      this.left = 600 * scale;
     },
   },
   mounted() {
     this.$nextTick(() => {
       window.addEventListener("resize", this.handleResize);
+      this.handleResize();
     });
-    this.handleResize();
   },
   unmounted() {
     window.removeEventListener("resize", this.handleResize);
@@ -58,10 +69,13 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  padding: 50px 0;
+  padding: 100px 0 50px 0;
   h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
     color: #efefef;
   }
   .movie__box {
@@ -73,8 +87,42 @@ section {
       width: 30%;
       img {
         width: 100%;
-        height: 100%;
       }
+    }
+  }
+  .box__txt {
+    position: absolute;
+    width: 1000px;
+    color: #efefef;
+    text-shadow: 1px 2px 3px #333;
+    margin: 0 5%;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    .txt__desc,
+    .desc2,
+    .txt__genres {
+      display: block;
+      line-height: 1.4;
+    }
+    .txt__title {
+      font-size: 5.2rem;
+    }
+    .desc1,
+    .desc2 {
+      font-weight: 100;
+      font-size: 2.6rem;
+      padding-bottom: 30px;
+    }
+    .txt__tagline {
+      display: block;
+      font-size: 3.2rem;
+      line-height: 1.4;
+      padding-bottom: 10px;
+    }
+    .txt__overview {
+      font-weight: 100;
+      font-size: 2.6rem;
+      line-height: 1.8;
     }
   }
 }
