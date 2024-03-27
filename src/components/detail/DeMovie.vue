@@ -1,5 +1,5 @@
 <template>
-  <section class="sec__movie" :style="{}">
+  <section class="sec__movie">
     <h2>영화 소개</h2>
     <div class="movie__box">
       <div class="box__poster">

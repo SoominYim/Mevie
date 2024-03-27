@@ -88,11 +88,12 @@ export default {
               ? (this.movieGenres += genre.name + ", ")
               : (this.movieGenres += genre.name);
           });
-
           if (this.movieData.backdrop_path !== null) {
             document.querySelector(
               ".sec__movie"
             ).style.background = `linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(${this.movieData.backdrop_path}) center / cover no-repeat`;
+          } else {
+            document.querySelector(".sec__movie").style.background = "#2b2b2b";
           }
         });
     },
