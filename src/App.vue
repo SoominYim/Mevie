@@ -37,4 +37,5 @@ export default {
 <style lang="scss">
 @import "./style/reset.css";
 @import "./style/app.scss";
+@import "./style/fonts.css";
 </style>

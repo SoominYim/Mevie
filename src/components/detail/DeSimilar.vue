@@ -2,14 +2,14 @@
   <section v-if="similarMovies.length !== 0">
     <h2>비슷한 영화</h2>
     <ul class="inner clearfix">
-      <li v-bind:key="index" v-for="(item, index) in this.similarMovies">
-        <a @click="getNewMovieId(item.id)">
+      <li :key="index" v-for="(item, index) in this.similarMovies">
+        <router-link @click="getNewMovieId(item.id)" :to="{ path: `/detail/${item.id}` }">
           <div class="movie-img">
             <img :src="item.poster" alt="포스터" v-if="item.poster !== null" />
             <img src="../../assets/img_no_poster.png" alt="No-Data" v-if="item.poster === null" />
           </div>
-          <span class="movie-title">{{ item.title }}</span>
-        </a>
+        </router-link>
+        <span class="movie-title">{{ item.title }}</span>
       </li>
     </ul>
   </section>
@@ -52,6 +52,21 @@ section {
         width: 100%;
         height: 100%;
       }
+    }
+  }
+}
+html[data-theme="brightMode"] {
+  span {
+    color: #2b2b2b;
+    text-decoration: none !important;
+  }
+}
+html[data-theme="darkMode"] {
+  box-shadow: 0 0 0 1px #515254, 0 3px 6px 0 rgba(0, 0, 0, 0.08);
+  span {
+    color: #d9dbdf;
+    span {
+      text-decoration: none;
     }
   }
 }

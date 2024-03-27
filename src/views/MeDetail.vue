@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div v-show="isLoading"></div>
+  <div v-show="!isLoading" class="container">
     <de-movie :movieData="movieData" :movieGenres="movieGenres"></de-movie>
     <de-credit :movieCast="movieCast" :movieCrew="movieCrew"></de-credit>
     <de-similar :similarMovies="similarMovies" :getNewMovieId="getMovieId"></de-similar>
@@ -17,6 +18,7 @@ export default {
   components: { DeMovie, DeCredit, DeSimilar },
   data() {
     return {
+      isLoading: false,
       movieData: {
         backdrop_path: null,
         poster_path: null,
@@ -51,6 +53,7 @@ export default {
       this.getSimilarMovies(newId);
     },
     getMovieData(id) {
+      this.isLoading = true;
       this.$axios
         .get(this.url.TMDb + `/movie/${id}`, {
           params: {
@@ -79,6 +82,7 @@ export default {
           console.log(err);
         })
         .finally(() => {
+          this.isLoading = false;
           this.movieData.genres.filter((genre, index) => {
             index < this.movieData.genres.length - 1
               ? (this.movieGenres += genre.name + ", ")
@@ -95,7 +99,7 @@ export default {
     getMovieCredits(id) {
       this.movieCast = [];
       this.movieCrew = [];
-
+      this.isLoading = true;
       this.$axios
         .get(this.url.TMDb + `/movie/${id}/credits`, {
           params: {
@@ -127,11 +131,13 @@ export default {
         .catch((err) => {
           console.log(err);
         })
-        .finally(() => {});
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     getSimilarMovies(id) {
       this.similarMovies = [];
-
+      this.isLoading = true;
       this.$axios
         .get(this.url.TMDb + `/movie/${id}/similar`, {
           params: {
@@ -156,7 +162,9 @@ export default {
         .catch((err) => {
           console.log(err);
         })
-        .finally(() => {});
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
   },
 };

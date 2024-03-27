@@ -1,6 +1,7 @@
 <template>
   <section class="main_movie">
-    <div class="slider__main">
+    <div v-show="loading" class="loading-overlay" :style="{ height: slider.s_width * 1.7753 + 'px' }"></div>
+    <div v-show="!loading" class="slider__main">
       <h2 class="blind">인기있는 영화</h2>
       <div class="main-slider-wrap">
         <ul
@@ -51,6 +52,7 @@ export default {
   name: "MainMovie",
   data() {
     return {
+      loading: false,
       slider: {
         sliderItems: [],
         sliderItems_page: 1,
@@ -70,6 +72,7 @@ export default {
   },
   methods: {
     getSliderItems() {
+      this.loading = true;
       this.$axios
         .get(this.url.TMDb + this.url.discover, {
           params: {
@@ -96,6 +99,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     handleResize() {

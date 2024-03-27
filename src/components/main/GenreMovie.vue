@@ -1,6 +1,7 @@
 <template>
   <section class="genre_movie" ref="section">
-    <div class="genre-slider-wrap">
+    <div v-show="loading" class="loading-overlay"></div>
+    <div v-show="!loading" class="genre-slider-wrap">
       <h2>{{ this.kor }}</h2>
       <ul class="genre__slider" ref="genre__slider">
         <li class="genre__item" v-for="(item, i) in genreItems" :class="`item${i + 1}`" :key="i">
@@ -44,6 +45,7 @@ export default {
   props: ["no", "kor", "eng"],
   data() {
     return {
+      loading: false,
       genreItems: [],
       slider: {
         item_width: 0,
@@ -61,6 +63,7 @@ export default {
 
   methods: {
     getMovie(No) {
+      this.loading = true;
       this.$axios
         .get(this.url.TMDb + this.url.discover, {
           params: {
@@ -83,6 +86,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     handleResize() {
@@ -147,11 +153,10 @@ export default {
   mounted() {
     this.$nextTick(() => {
       if (this.$refs.genre__slider) {
-        this.handleResize(); // 요소에 접근하기 전에 호출
-
         window.addEventListener("resize", this.handleResize);
       }
     });
+    this.handleResize(); // 요소에 접근하기 전에 호출
     this.getMovie(this.no);
   },
   unmounted() {
