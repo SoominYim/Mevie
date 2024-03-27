@@ -1,0 +1,53 @@
+section {
+  width: 90%;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  font-family: "Noto Sans KR", "바탕체", Dotum, "굴림", sans-serif;
+  h2 {
+    font-size: 2.4rem;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    font-weight: 500;
+  }
+  h3 {
+    font-size: 2.2rem;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    font-weight: 500;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    li {
+      min-width: 120px;
+      min-height: 180px;
+      max-width: 120px;
+      max-width: 180px;
+      width: 20%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      dl {
+        font-size: 1.3rem;
+        font-weight: 300;
+        line-height: 1.8;
+        letter-spacing: -1.2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+.sec__credits > div {
+  padding-bottom: 15px;
+}
+.sec__credits .credits-crew li,
+.sec__credits .credits-cast li {
+  float: left;
+}
+.sec__credits dl {
+  padding: 5px 0 15px;
+}

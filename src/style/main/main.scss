@@ -1,0 +1,78 @@
+.slider__main {
+  position: relative;
+  .main__slider {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    .slider__item {
+      position: relative;
+      display: inline-block;
+      white-space: normal;
+      flex: 0 0 auto;
+      .item__img {
+        text-align: center;
+        img {
+          width: 100%;
+        }
+      }
+      .item__txt {
+        position: absolute;
+        top: 340px;
+        left: 120px;
+        width: 1000px;
+        line-height: 1.7;
+        color: #efefef;
+        text-shadow: 1px 2px 3px #333;
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+        .txt__title {
+          font-size: 5rem;
+          font-weight: 700;
+          line-height: 1.3;
+        }
+        .txt__subject {
+          font-size: 2rem;
+          font-weight: 100;
+          margin-bottom: 20px;
+        }
+        .txt__desc {
+          text-overflow: ellipsis;
+          font-size: 2.5rem;
+          font-weight: 100;
+          letter-spacing: -1.8px;
+          word-break: keep-all;
+        }
+      }
+      .item__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .btn__prev {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    cursor: pointer;
+    i {
+      color: #efefef;
+      font-size: 5vw;
+      pointer-events: none;
+    }
+  }
+  .btn__next {
+    position: absolute;
+    top: 45%;
+    right: 0;
+    cursor: pointer;
+    i {
+      color: #efefef;
+      font-size: 5vw;
+      pointer-events: none;
+    }
+  }
+}
