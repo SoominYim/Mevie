@@ -6,7 +6,7 @@
       </div>
     </router-link>
     <router-link v-if="$route.name !== 'search'" :to="{ name: 'search' }">
-      <i class="material-symbols-outlined search"> search </i>
+      <i class="material-symbols-outlined search" :style="{ left: `${1600 * scale}px` }"> search </i>
     </router-link>
   </header>
 </template>
@@ -15,11 +15,23 @@
 export default {
   name: "MeHeader",
   data() {
-    return {};
+    return {
+      scale: 0,
+    };
   },
   computed: {},
-  methods: {},
-  mounted() {},
+  methods: {
+    resize() {
+      this.scale = window.innerWidth / 1920;
+      console.log(this.scale);
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener("resize", this.resize);
+      this.resize(); // 요소에 접근하기 전에 호출
+    });
+  },
 };
 </script>
 
@@ -41,8 +53,7 @@ header {
     color: white;
     font-weight: bold;
     font-size: 4.9rem;
-    left: 1090px;
-    top: 20px;
+    top: 10px;
   }
 }
 </style>
