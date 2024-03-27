@@ -1,6 +1,6 @@
 <template>
   <section v-if="movieCrew.length != 0 && movieCast.length != 0">
-    <h2>출연진</h2>
+    <h2>감독/출연</h2>
     <div class="credits-crew inner" v-if="movieCrew.length != 0">
       <h3>감독</h3>
       <ul class="clearfix">

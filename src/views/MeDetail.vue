@@ -2,17 +2,19 @@
   <div class="container">
     <de-movie :movieData="movieData" :movieGenres="movieGenres"></de-movie>
     <de-credit :movieCast="movieCast" :movieCrew="movieCrew"></de-credit>
+    <de-similar :similarMovies="similarMovies" :getNewMovieId="getMovieId"></de-similar>
   </div>
 </template>
 
 <script>
 import DeMovie from "@/components/detail/DeMovie.vue";
 import DeCredit from "@/components/detail/DeCredit.vue";
+import DeSimilar from "@/components/detail/DeSimilar.vue";
 import { mapState } from "vuex";
 
 export default {
   name: "MeDetail",
-  components: { DeMovie, DeCredit },
+  components: { DeMovie, DeCredit, DeSimilar },
   data() {
     return {
       movieData: {
@@ -46,7 +48,7 @@ export default {
 
       this.getMovieData(newId);
       this.getMovieCredits(newId);
-      // this.getSimilarMovies(newId);
+      this.getSimilarMovies(newId);
     },
     getMovieData(id) {
       this.$axios
@@ -120,6 +122,35 @@ export default {
               name: data.name,
               profile_path: data.profile_path === null ? null : this.$store.state.imgURL.poster + data.profile_path,
             });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {});
+    },
+    getSimilarMovies(id) {
+      this.similarMovies = [];
+
+      this.$axios
+        .get(this.url.TMDb + `/movie/${id}/similar`, {
+          params: {
+            api_key: this.params.apiKey,
+            language: this.params.langKo,
+          },
+        })
+        .then((res) => {
+          const result = res.data.results;
+
+          result.forEach((data, idx) => {
+            if (idx >= 10) return;
+            if (data.poster_path !== "") {
+              this.similarMovies.push({
+                id: data.id,
+                title: data.title,
+                poster: data.poster_path === null ? null : this.imgURL.poster + data.poster_path,
+              });
+            }
           });
         })
         .catch((err) => {
