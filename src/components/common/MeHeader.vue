@@ -5,18 +5,9 @@
         <span class="blind">Mevie</span>
       </div>
     </router-link>
-    <span class="button__page-back">
-      <a @click="$router.go(-1)">
-        <i class="fas fa-chevron-left">
-          <span class="blind">이전 페이지</span>
-        </i>
-      </a>
-    </span>
-    <span class="button__search">
-      <!-- <router-link :to="{ name: 'search' }">
-        <i class="fas fa-search"></i>
-      </router-link> -->
-    </span>
+    <router-link v-if="$route.name !== 'search'" :to="{ name: 'search' }">
+      <i class="material-symbols-outlined search"> search </i>
+    </router-link>
   </header>
 </template>
 
@@ -34,6 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 header {
+  position: relative;
   * {
     position: absolute;
     z-index: 100;
@@ -44,6 +36,13 @@ header {
     left: 10px;
     top: 10px;
     background: url("../../assets/logo_black.png") no-repeat 0 0 / 100% auto;
+  }
+  .search {
+    color: white;
+    font-weight: bold;
+    font-size: 4.9rem;
+    left: 1090px;
+    top: 20px;
   }
 }
 </style>

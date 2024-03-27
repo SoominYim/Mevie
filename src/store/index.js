@@ -57,7 +57,7 @@ export default createStore({
     },
     routerMovieInfo: (state, payload) => {
       state.movieId = payload;
-      router.push({ path: "/movie/" + state.movieId });
+      router.push({ path: "/detail/" + state.movieId });
     },
     setTheme(state, theme) {
       state.theme = theme;

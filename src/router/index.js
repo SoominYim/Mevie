@@ -3,6 +3,7 @@ import MeMain from "@/views/MeMain.vue";
 import MobileDetect from "mobile-detect";
 import MoMain from "@/mobile/views/MoMain.vue";
 import MeDetail from "@/views/MeDetail";
+import MeSearch from "@/views/MeSearch.vue";
 
 // PC
 const w_routes = [
@@ -15,6 +16,11 @@ const w_routes = [
     path: "/detail/:id",
     name: "MeDetail",
     component: MeDetail,
+  },
+  {
+    path: "/search",
+    name: "search",
+    component: MeSearch,
   },
 ];
 
