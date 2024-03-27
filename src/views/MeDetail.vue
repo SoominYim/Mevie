@@ -1,16 +1,18 @@
 <template>
   <div class="container">
     <de-movie :movieData="movieData" :movieGenres="movieGenres"></de-movie>
+    <de-credit :movieCast="movieCast" :movieCrew="movieCrew"></de-credit>
   </div>
 </template>
 
 <script>
 import DeMovie from "@/components/detail/DeMovie.vue";
+import DeCredit from "@/components/detail/DeCredit.vue";
 import { mapState } from "vuex";
 
 export default {
   name: "MeDetail",
-  components: { DeMovie },
+  components: { DeMovie, DeCredit },
   data() {
     return {
       movieData: {
@@ -43,7 +45,7 @@ export default {
       this.$store.commit("changeMovieId", newId);
 
       this.getMovieData(newId);
-      // this.getMovieCredits(newId);
+      this.getMovieCredits(newId);
       // this.getSimilarMovies(newId);
     },
     getMovieData(id) {
@@ -87,6 +89,43 @@ export default {
             ).style.background = `linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(${this.movieData.backdrop_path}) center / cover no-repeat`;
           }
         });
+    },
+    getMovieCredits(id) {
+      this.movieCast = [];
+      this.movieCrew = [];
+
+      this.$axios
+        .get(this.url.TMDb + `/movie/${id}/credits`, {
+          params: {
+            api_key: this.params.apiKey,
+          },
+        })
+        .then((res) => {
+          const cast = res.data.cast;
+          const crew = res.data.crew;
+
+          crew.forEach((data) => {
+            if (data.job !== "Director") return;
+
+            this.movieCrew.push({
+              name: data.name,
+              profile_path: data.profile_path === null ? null : this.$store.state.imgURL.poster + data.profile_path,
+            });
+          });
+          cast.forEach((data, idx) => {
+            if (idx >= 8) return;
+
+            this.movieCast.push({
+              character: data.character !== "" ? data.character : "-",
+              name: data.name,
+              profile_path: data.profile_path === null ? null : this.$store.state.imgURL.poster + data.profile_path,
+            });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {});
     },
   },
 };
