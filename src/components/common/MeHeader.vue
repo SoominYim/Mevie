@@ -1,7 +1,7 @@
 <template>
   <header>
     <router-link :to="{ path: '/' }">
-      <div class="logo" style="logoTheme">
+      <div class="logo" style="logoTheme" :style="{ position: `${$route.name === 'search' ? 'fixed' : 'relative'}` }">
         <span class="blind">Mevie</span>
       </div>
     </router-link>
@@ -23,7 +23,6 @@ export default {
   methods: {
     resize() {
       this.scale = window.innerWidth / 1920;
-      console.log(this.scale);
     },
   },
   mounted() {

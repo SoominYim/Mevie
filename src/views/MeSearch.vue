@@ -20,8 +20,8 @@
       <div
         class="search__button-more"
         @click="getPageMore"
-        style="color: white"
-        v-show="title.length != 0 && total_pages !== pageNo"
+        style="color: white; cursor: pointer"
+        v-show="searchWord.length > 1 && total_pages != pageNo"
       >
         더 불러오기
       </div>
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       title: "",
-      searchWord: null,
+      searchWord: "",
       searchList: [],
       pageNo: 1,
       showBtns: false,
@@ -78,6 +78,7 @@ export default {
               data.release_date === "" ? "-" : data.release_date,
             ]);
             this.total_pages = res.data.total_pages;
+            console.log(this.total_pages);
           });
           return result.length;
         })
