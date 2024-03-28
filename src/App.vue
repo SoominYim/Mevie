@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <me-header></me-header>
+    <mo-header v-if="$md.mobile()"></mo-header>
+    <me-header v-else></me-header>
     <router-view />
     <me-fix></me-fix>
   </div>
@@ -9,12 +10,14 @@
 <script>
 import MeHeader from "@/components/common/MeHeader";
 import MeFix from "@/components/common/MeFix";
+import MoHeader from "@/mobile/common/MoHeader";
 
 export default {
   name: "App",
   components: {
     MeHeader,
     MeFix,
+    MoHeader,
   },
   data() {
     return {

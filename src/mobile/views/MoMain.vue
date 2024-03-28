@@ -1,21 +1,44 @@
 <template>
   <div class="container">
-    <div>죄송합니다. 모바일 화면은 준비중입니다.</div>
+    <main-movie></main-movie>
+    <h1>장르별 영화</h1>
+    <genre-movie
+      :key="i"
+      v-for="(genre, i) in allGenres"
+      :no="genre.id"
+      :kor="genre.kor"
+      :eng="genre.eng"
+    ></genre-movie>
   </div>
 </template>
+
 <script>
+import { mapState } from "vuex";
+import MainMovie from "@/components/main/MainMovie";
+import GenreMovie from "@/components/mobile/MoGenreMovie.vue";
+
 export default {
-  name: "m_main",
+  name: "MeMain",
+  components: { MainMovie, GenreMovie },
+  data() {
+    return {
+      sampleData: "",
+    };
+  },
+  computed: {
+    ...mapState(["allGenres"]),
+  },
+  setup() {},
+  created() {},
+  mounted() {},
+  unmounted() {},
+  methods: {},
 };
 </script>
+
 <style lang="scss" scoped>
-.container {
-  position: relative;
-  height: 500px;
-  div {
-    position: relative;
-    top: 150px;
-    text-align: center;
-  }
+h1 {
+  font-size: 1.8rem;
+  padding: 0 10px;
 }
 </style>

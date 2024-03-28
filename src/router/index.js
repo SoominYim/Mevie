@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MeMain from "@/views/MeMain.vue";
-import MobileDetect from "mobile-detect";
 import MoMain from "@/mobile/views/MoMain.vue";
 import MeDetail from "@/views/MeDetail";
 import MeSearch from "@/views/MeSearch.vue";
+import MobileDetect from "mobile-detect";
 
 // PC
 const w_routes = [
@@ -42,9 +42,7 @@ const m_routes = [
     component: MeSearch,
   },
 ];
-
 const md = new MobileDetect(window.navigator.userAgent);
-
 const createRouterInstance = () => {
   if (md.mobile()) {
     console.log("CONNECTION WITH MOBILE");
