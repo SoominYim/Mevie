@@ -199,7 +199,7 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 
 
 # 프리뷰
-## 🖥️ Desktop
+### 🖥️ Desktop
 ### 메인 화면
 ![mevie (2)](https://github.com/SoominYim/Mevie/assets/107674737/963beedf-2d63-4108-bacb-54e08f7d1dd1)
 ![mevie (3)](https://github.com/SoominYim/Mevie/assets/107674737/a5626ff6-e289-4dd2-840e-c0b8bf002798)
@@ -211,7 +211,7 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 ![mevie (5)](https://github.com/SoominYim/Mevie/assets/107674737/e4a72fbe-a74a-4e47-8a2d-7c813a7f61c8)
 
 
-## 📱 Mobile
+### 📱 Mobile
 ### 메인 화면
 
 ![mevie (6)](https://github.com/SoominYim/Mevie/assets/107674737/1790afee-77be-47ed-b35f-785021a40b87)
