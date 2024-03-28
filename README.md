@@ -196,7 +196,25 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
     - 좀 더 나은 사용자 경험을 위해 transition 애니메이션을 준 것
   - **해결방법**
     - transition 코드 제거 후 정상 작동
-***
+
+
+# 프리뷰
+## 🖥️ Desktop
+### 메인 화면
+![mevie (2)](https://github.com/SoominYim/Mevie/assets/107674737/963beedf-2d63-4108-bacb-54e08f7d1dd1)
+![mevie (3)](https://github.com/SoominYim/Mevie/assets/107674737/a5626ff6-e289-4dd2-840e-c0b8bf002798)
+
+### 상세 화면
+![mevie (4)](https://github.com/SoominYim/Mevie/assets/107674737/5f35407f-b9e6-4122-bf0f-17836aebf5d4)
+
+### 검색 화면
+![mevie (5)](https://github.com/SoominYim/Mevie/assets/107674737/e4a72fbe-a74a-4e47-8a2d-7c813a7f61c8)
+
+
+## 📱 Mobile
+### 메인 화면
+
+![mevie (6)](https://github.com/SoominYim/Mevie/assets/107674737/1790afee-77be-47ed-b35f-785021a40b87)
 
 # 마치며 
 
