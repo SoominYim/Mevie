@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" ref="content" @scroll="handleScroll()">
     <div class="search-bar">
       <input type="text" placeholder="검색어를 입력하세요." @input="getKeyword" />
     </div>
@@ -17,14 +17,6 @@
           </a>
         </li>
       </ul>
-      <div
-        class="search__button-more"
-        @click="getPageMore"
-        style="color: white; cursor: pointer"
-        v-show="searchWord.length > 1 && total_pages != pageNo"
-      >
-        더 불러오기
-      </div>
     </section>
   </div>
 </template>
@@ -38,7 +30,6 @@ export default {
       searchWord: "",
       searchList: [],
       pageNo: 1,
-      showBtns: false,
       total_pages: 0,
     };
   },
@@ -78,7 +69,6 @@ export default {
               data.release_date === "" ? "-" : data.release_date,
             ]);
             this.total_pages = res.data.total_pages;
-            console.log(this.total_pages);
           });
           return result.length;
         })
@@ -92,9 +82,46 @@ export default {
         })
         .finally(() => {});
     },
+    handleScroll() {
+      if (
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight &&
+        this.pageNo < this.total_pages
+      ) {
+        this.getPageMore();
+      }
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
 <style lang="scss" scoped>
 @import "../style/search.scss";
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  background-color: #333;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>
