@@ -166,5 +166,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../style/main/Genre.scss";
+@import "../../style/main/genre.scss";
 </style>
