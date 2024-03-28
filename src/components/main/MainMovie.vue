@@ -25,14 +25,13 @@
               :style="{
                 transform: `scale(${text.scale})`,
                 transformOrigin: 'top left',
-                width: `${item.overview.length < 200 ? 1000 : $md.mobile() ? 1700 : 1000}px`,
                 top: `${text.top - 10}px`,
                 left: `${text.left}px`,
               }"
             >
-              <div class="txt__title" :style="{ fontSize: `${$md.mobile() ? 3.5 : 5}rem` }">{{ item.title }}</div>
+              <div class="txt__title">{{ item.title }}</div>
               <div class="txt__subject">{{ item.original_title }}, {{ item.release_date }}</div>
-              <div class="txt__desc" :style="{ fontSize: `${$md.mobile() ? 2.2 : 2.5}rem` }">{{ item.overview }}</div>
+              <div class="txt__desc" v-if="!$md.mobile()">{{ item.overview }}</div>
             </div>
           </li>
         </ul>
