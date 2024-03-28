@@ -31,6 +31,16 @@ const m_routes = [
     name: "m_main",
     component: MoMain,
   },
+  {
+    path: "/detail/:id",
+    name: "MeDetail",
+    component: MeDetail,
+  },
+  {
+    path: "/search",
+    name: "search",
+    component: MeSearch,
+  },
 ];
 
 const md = new MobileDetect(window.navigator.userAgent);
