@@ -190,13 +190,16 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
     - 최초 Local Storage에 값을 저장할때 Store에 state에서 저장을 하는데, default 값을 '' 빈 문자열로 저장함
   - **해결방법**
     - state에 default 인 "brightMode"로 저장
+   
+    
 ### ❌ Dark Mode 사용중 새로고침시에 화면 깜빡임 버그 ☑️
 ![recording-_1_](https://github.com/SoominYim/Mevie/assets/107674737/313e671e-a0ae-493d-b40c-26fc84885e05)
   - **원인**
     - 좀 더 나은 사용자 경험을 위해 transition 애니메이션을 준 것
   - **해결방법**
     - transition 코드 제거 후 정상 작동
-
+## Window Resizing
+### ❌ 장르별 영화의 순서가 변경 됨 (해결 X)
 
 # 프리뷰
 ### 🖥️ Desktop
