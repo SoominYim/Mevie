@@ -1,4 +1,8 @@
 # Mevie
+## 목차
+1. [프로젝트 개요](#프로젝트-개요)
+2. [프로젝트 목적](#프로젝트-목적)
+
 
 ## 🎞 영화 검색 웹 애플리케이션 프로젝트
 ![Logo](https://github.com/SoominYim/Mevie/assets/107674737/4aa69fea-1822-497b-a572-761df4ee505a "Bright")
