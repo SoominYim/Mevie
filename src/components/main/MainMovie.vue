@@ -25,7 +25,7 @@
               :style="{
                 transform: `scale(${text.scale})`,
                 transformOrigin: 'top left',
-                width: `${item.overview.length > 200 ? 1300 : 1000}px`,
+                width: `${item.overview.length < 200 ? 1000 : $md.mobile() ? 1700 : 1000}px`,
                 top: `${text.top}px`,
                 left: `${text.left}px`,
               }"
