@@ -219,5 +219,4 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 
 ![mevie (6)](https://github.com/SoominYim/Mevie/assets/107674737/1790afee-77be-47ed-b35f-785021a40b87)
 
-# 마치며 
 
