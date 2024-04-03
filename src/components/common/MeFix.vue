@@ -39,6 +39,7 @@ export default {
 // Fixed
 .fix-item {
   position: fixed;
+  z-index: 999;
   right: 5%;
   bottom: 5%;
   button {
@@ -49,6 +50,8 @@ export default {
     border: 1px solid #b0b1b3;
     vertical-align: top;
     span {
+      left: 0px;
+      position: relative;
       padding: 3px 0 0 0;
     }
     cursor: pointer;
