@@ -6,11 +6,11 @@
 ## 목차
 1. [프로젝트 개요](#프로젝트-개요)
 2. [프로젝트 계획](#프로젝트-계획)
-3. [기획 단계](#기획-단계)
-4. [개발 단계](#개발-단계)
-5. [테스트 단계](#테스트-단계)
+3. [기획 단계](#-기획-단계)
+4. [개발 단계](#-개발-단계)
+5. [테스트 단계](#-테스트-단계)
 
-
+<br>
 
 ## 프로젝트 개요 
 
@@ -55,7 +55,6 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 <br>
 <br>
 
-***
 
 # 프로젝트 계획 
 
@@ -63,10 +62,12 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 2. **개발 단계**: Vue.js를 사용하여 프론트엔드를 개발하고, KOFIC API와의 연동
 3. **테스트 단계**: 각 기능의 동작을 테스트하고, 버그를 수정하여 안정적인 서비스를 제공
 4. **배포 단계**: 완성된 애플리케이션을 웹 호스팅 서비스에 배포
-
+   
+<br>
 # 추가 계획
 
 1. PC / Mobile 라우터 분기처리 ☑️
+2. 검색화면에서 추가 Data는 스크롤 처리 ☑️
 
 <br>
 
@@ -140,7 +141,6 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 - #### 검색 화면
 <img src="https://github.com/SoominYim/Mevie/assets/107674737/dd05b91b-f518-4659-ba35-deb3cedbdd6e" alt="상세화면" width="560">
 
-***
 
 # 💻 개발 단계
 ### **공통 사항**
@@ -190,16 +190,19 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
     - 최초 Local Storage에 값을 저장할때 Store에 state에서 저장을 하는데, default 값을 '' 빈 문자열로 저장함
   - **해결방법**
     - state에 default 인 "brightMode"로 저장
+   
+    
 ### ❌ Dark Mode 사용중 새로고침시에 화면 깜빡임 버그 ☑️
 ![recording-_1_](https://github.com/SoominYim/Mevie/assets/107674737/313e671e-a0ae-493d-b40c-26fc84885e05)
   - **원인**
     - 좀 더 나은 사용자 경험을 위해 transition 애니메이션을 준 것
   - **해결방법**
     - transition 코드 제거 후 정상 작동
-
+## Window Resizing
+### ❌ 장르별 영화의 순서가 변경 됨 (해결 X)
 
 # 프리뷰
-## 🖥️ Desktop
+### 🖥️ Desktop
 ### 메인 화면
 ![mevie (2)](https://github.com/SoominYim/Mevie/assets/107674737/963beedf-2d63-4108-bacb-54e08f7d1dd1)
 ![mevie (3)](https://github.com/SoominYim/Mevie/assets/107674737/a5626ff6-e289-4dd2-840e-c0b8bf002798)
@@ -211,10 +214,9 @@ TMDB API를 활용하여 영화 데이터를 가져와 사용자에게 제공합
 ![mevie (5)](https://github.com/SoominYim/Mevie/assets/107674737/e4a72fbe-a74a-4e47-8a2d-7c813a7f61c8)
 
 
-## 📱 Mobile
+### 📱 Mobile
 ### 메인 화면
 
 ![mevie (6)](https://github.com/SoominYim/Mevie/assets/107674737/1790afee-77be-47ed-b35f-785021a40b87)
 
-# 마치며 
 
