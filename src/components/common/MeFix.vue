@@ -1,10 +1,10 @@
 <template>
   <div class="fix-item">
     <button class="top-btn" @click="scrollTop">
-      <span class="material-symbols-outlined" :style="{ left: `${isMobile ? -3 : 0}px` }"> arrow_upward </span>
+      <span class="material-symbols-outlined" :style="{ left: `${isIOS && isMobile ? -3 : 0}px` }"> arrow_upward </span>
     </button>
     <button class="mode-btn" @click="toggleMode">
-      <span class="material-symbols-outlined" :style="{ left: `${isMobile ? -3 : 0}px` }">
+      <span class="material-symbols-outlined" :style="{ left: `${isIOS && isMobile ? -3 : 0}px` }">
         {{ theme == "brightMode" ? "light_mode" : "dark_mode" }}
       </span>
     </button>
@@ -22,6 +22,10 @@ export default {
     isMobile() {
       const md = new MobileDetect(window.navigator.userAgent);
       return md.mobile() !== null;
+    },
+    isIOS() {
+      const userAgent = window.navigator.userAgent;
+      return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
     },
   },
   data() {
