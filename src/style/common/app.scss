@@ -12,6 +12,8 @@ html[data-theme="brightMode"] {
       -webkit-box-shadow: 0 0 0 1px #dadcdf, 0 4px 8px 0 rgba(0, 0, 0, 0.15);
       box-shadow: 0 0 0 1px #dadcdf, 0 4px 8px 0 rgba(0, 0, 0, 0.15);
       span {
+        left: 0px;
+        position: relative;
         color: #2b2b2b;
       }
     }
