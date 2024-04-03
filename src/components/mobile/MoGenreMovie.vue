@@ -81,11 +81,13 @@ export default {
         });
     },
     handleTouchStart(event) {
+      event.preventDefault();
       this.isDragging = true;
       this.startX = event.touches[0].clientX;
       this.startTranslate = this.currentTranslate; // 터치 시작 시 이전 translate 값 저장
     },
     handleTouchMove(event) {
+      event.preventDefault();
       if (!this.isDragging) return;
 
       const currentTouchX = event.touches[0].clientX;
