@@ -6,9 +6,7 @@
       :slidesPerView="4.2"
       :spaceBetween="10"
       :freeMode="true"
-      :pagination="{
-        clickable: true,
-      }"
+      :loop="true"
       :modules="modules"
       class="genre-slider-wrap"
     >
@@ -40,14 +38,14 @@ export default {
     return {
       loading: false,
       genreItems: [],
-      isMouseDown: false,
-      diff: 0,
-      startTranslate: 0,
-      startX: 0,
-      scrollLeft: 0,
-      currentTranslate: 0,
-      isDragging: false,
-      prevTouchX: 0,
+      // isMouseDown: false,
+      // diff: 0,
+      // startTranslate: 0,
+      // startX: 0,
+      // scrollLeft: 0,
+      // currentTranslate: 0,
+      // isDragging: false,
+      // prevTouchX: 0,
     };
   },
   computed: {
