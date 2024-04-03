@@ -1,5 +1,6 @@
 <template>
   <section class="genre_movie" ref="section">
+    <h2>{{ this.kor }}</h2>
     <div v-show="loading" class="loading-overlay"></div>
     <div
       v-show="!loading"
@@ -10,7 +11,6 @@
       @touchcancel="handleTouchCancel"
       class="genre-slider-wrap"
     >
-      <h2>{{ this.kor }}</h2>
       <ul class="genre__slider">
         <li class="genre__item" v-for="(item, i) in genreItems" :class="`item${i + 1}`" :key="i">
           <router-link :to="{ path: `/detail/${item.id}` }">
@@ -81,14 +81,26 @@ export default {
         });
     },
     handleTouchStart(event) {
-      window.addEventListener("touchstart", function () {
-        event.preventDefault();
-      });
+      window.addEventListener(
+        "touchstart",
+        function () {
+          event.preventDefault();
+        },
+        { passive: false }
+      );
       this.isDragging = true;
       this.startX = event.touches[0].clientX;
       this.startTranslate = this.currentTranslate; // 터치 시작 시 이전 translate 값 저장
     },
     handleTouchMove(event) {
+      window.addEventListener(
+        "touchmove",
+        function () {
+          event.preventDefault();
+        },
+        { passive: false }
+      );
+
       if (!this.isDragging) return;
 
       const currentTouchX = event.touches[0].clientX;
