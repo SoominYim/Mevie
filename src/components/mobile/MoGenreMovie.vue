@@ -1,9 +1,17 @@
 <template>
   <section class="genre_movie" ref="section">
     <div v-show="loading" class="loading-overlay"></div>
-    <div v-show="!loading" class="genre-slider-wrap">
+    <div
+      v-show="!loading"
+      ref="genre__slider"
+      @touchstart="handleTouchStart"
+      @touchmove="handleTouchMove"
+      @touchend="handleTouchEnd"
+      @touchcancel="handleTouchCancel"
+      class="genre-slider-wrap"
+    >
       <h2>{{ this.kor }}</h2>
-      <ul class="genre__slider" ref="genre__slider">
+      <ul class="genre__slider">
         <li class="genre__item" v-for="(item, i) in genreItems" :class="`item${i + 1}`" :key="i">
           <router-link :to="{ path: `/detail/${item.id}` }">
             <div class="genre__thumbnail">
@@ -27,6 +35,14 @@ export default {
     return {
       loading: false,
       genreItems: [],
+      isMouseDown: false,
+      diff: 0,
+      startTranslate: 0,
+      startX: 0,
+      scrollLeft: 0,
+      currentTranslate: 0,
+      isDragging: false,
+      prevTouchX: 0,
     };
   },
   computed: {
@@ -63,6 +79,29 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    handleTouchStart(event) {
+      this.isDragging = true;
+      this.startX = event.touches[0].clientX;
+      this.startTranslate = this.currentTranslate; // 터치 시작 시 이전 translate 값 저장
+    },
+    handleTouchMove(event) {
+      if (!this.isDragging) return;
+
+      const currentTouchX = event.touches[0].clientX;
+      this.diff = this.startX - currentTouchX;
+      this.currentTranslate = this.currentTranslate = Math.max(
+        window.innerWidth - 1715,
+        Math.min(0, this.startTranslate - this.diff)
+      ); // 이동량에 따라 translate 값 변경
+      this.updateSliderPosition();
+    },
+    handleTouchEnd() {
+      this.isDragging = false;
+    },
+    updateSliderPosition() {
+      const slider = this.$refs.genre__slider;
+      slider.style.left = `${this.currentTranslate}px`;
     },
   },
   mounted() {
