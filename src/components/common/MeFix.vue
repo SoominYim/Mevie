@@ -1,8 +1,10 @@
 <template>
   <div class="fix-item">
-    <button class="top-btn" @click="scrollTop"><span class="material-symbols-outlined"> arrow_upward </span></button>
+    <button class="top-btn" @click="scrollTop">
+      <span class="material-symbols-outlined" :style="{ left: `${isMobile ? -3 : 0}px` }"> arrow_upward </span>
+    </button>
     <button class="mode-btn" @click="toggleMode">
-      <span class="material-symbols-outlined">
+      <span class="material-symbols-outlined" :style="{ left: `${isMobile ? -3 : 0}px` }">
         {{ theme == "brightMode" ? "light_mode" : "dark_mode" }}
       </span>
     </button>
@@ -10,11 +12,16 @@
 </template>
 
 <script>
+import MobileDetect from "mobile-detect";
 export default {
   name: "MeFix",
   computed: {
     theme() {
       return this.$store.state.theme;
+    },
+    isMobile() {
+      const md = new MobileDetect(window.navigator.userAgent);
+      return md.mobile() !== null;
     },
   },
   data() {
