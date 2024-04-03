@@ -1,5 +1,5 @@
 <template>
-  <section class="sec__movie">
+  <section class="sec__movie" :style="{ paddingTop: `${isMobile ? 60 : 100}px` }">
     <h2>영화 소개</h2>
     <div class="movie__box">
       <div class="box__poster">
@@ -11,7 +11,7 @@
         :style="{
           transform: `scale(${scale})`,
           transformOrigin: 'top left',
-          top: `${top}px`,
+          top: `${isMobile ? top - 50 : top}px`,
           left: `${left}px`,
         }"
       >
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import MobileDetect from "mobile-detect";
 export default {
   name: "DeMovies",
   props: ["movieData", "movieGenres"],
@@ -45,6 +46,12 @@ export default {
       top: 170,
       left: 0,
     };
+  },
+  computed: {
+    isMobile() {
+      const md = new MobileDetect(window.navigator.userAgent);
+      return md.mobile() !== null;
+    },
   },
   methods: {
     handleResize() {
