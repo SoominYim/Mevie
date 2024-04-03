@@ -1,5 +1,11 @@
 <template>
-  <section class="sec__movie" :style="{ paddingTop: `${isMobile ? 60 : 100}px` }">
+  <section
+    class="sec__movie"
+    :style="{
+      paddingTop: `${isMobile ? 60 : 100}px`,
+      paddingBottom: `${movieData.overview.length > 225 ? 160 : 60}px`,
+    }"
+  >
     <h2>영화 소개</h2>
     <div class="movie__box">
       <div class="box__poster">
